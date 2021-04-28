@@ -9,6 +9,7 @@ import java.util.Objects;
 import com.ian.springbootjwtmysql.config.JwtTokenUtil;
 import com.ian.springbootjwtmysql.model.JwtRequest;
 import com.ian.springbootjwtmysql.model.JwtResponse;
+import com.ian.springbootjwtmysql.model.UserDTO;
 import com.ian.springbootjwtmysql.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +50,12 @@ public class JwtAuthenticationController {
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
+    }
+
 
     private void authenticate(String username, String password) throws Exception {
         try {
